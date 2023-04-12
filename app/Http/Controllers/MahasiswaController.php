@@ -12,10 +12,9 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswas = Mahasiswa::all();
-        $posts = Mahasiswa::orderBy('nim', 'desc')->paginate(6);
+        $mahasiswas = Mahasiswa::paginate(5);
+        $posts = Mahasiswa::orderBy('nim', 'desc')->paginate(5);
         return view('mahasiswas.index', compact('mahasiswas'));
-        with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
