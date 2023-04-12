@@ -10,10 +10,23 @@ class MahasiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $mahasiswas = Mahasiswa::paginate(5);
-        $posts = Mahasiswa::orderBy('nim', 'desc')->paginate(5);
+        $keyword = $request->get('search');
+
+        if (!empty($keyword)) {
+            $mahasiswas = Mahasiswa::where('nim', 'LIKE', "%$keyword%")
+                ->orWhere('nama', 'LIKE', "%$keyword%")
+                ->orWhere('kelas', 'LIKE', "%$keyword%")
+                ->orWhere('jurusan', 'LIKE', "%$keyword%")
+                ->orWhere('no_handphone', 'LIKE', "%$keyword%")
+                ->orWhere('email', 'LIKE', "%$keyword%")
+                ->orWhere('tanggal_lahir', 'LIKE', "%$keyword%")
+                ->paginate(5);
+        } else {
+            $mahasiswas = Mahasiswa::paginate(5);
+        }
+
         return view('mahasiswas.index', compact('mahasiswas'));
     }
 

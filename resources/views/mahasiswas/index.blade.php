@@ -17,6 +17,14 @@
         </div>
     @endif
 
+    <form action="{{ route('mahasiswas.index') }}" method="get">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search.." name="search"
+                   value="{{ request('search')}}">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+
     <table class="table table-bordered">
         <tr>
             <th>Nim</th>
